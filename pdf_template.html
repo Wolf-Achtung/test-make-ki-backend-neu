@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>KI-Readiness-Report 2025</title>
+  <style>
+    body {
+      background: #fff;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      color: #213258;
+    }
+    .report-section {
+      width: 175mm;
+      min-height: 50mm;
+      margin: 0 auto 30mm auto;
+      padding: 16mm 16mm 20mm 16mm;
+      background: #fff;
+      box-sizing: border-box;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    h1 {
+      font-size: 2.15em;
+      text-align: center;
+      color: #1e3a8a;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      margin: 70px 0 10px 0;
+    }
+    h2 {
+      color: #2563eb;
+      font-size: 1.23em;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #e8eefd;
+      padding-bottom: 4px;
+      letter-spacing: 0.6px;
+    }
+    .subtitle {
+      font-size: 1.17em;
+      text-align: center;
+      color: #1e40af;
+      margin-bottom: 40px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .chapter-box {
+      background: #f4f8fc;
+      border-radius: 12px;
+      padding: 28px 30px;
+      margin: 0 auto 18px auto;
+      max-width: 15.5cm;
+      color: #223561;
+      font-size: 1.09em;
+      line-height: 1.6;
+      page-break-inside: avoid;
+      word-break: break-word;
+      border: 1.1px solid #e5eefa;
+    }
+    ul, ol {
+      margin-left: 1.2em;
+      margin-bottom: 1em;
+    }
+    b { color: #2563eb; }
+    @page {
+      margin: 32mm 18mm 28mm 18mm;
+      @bottom-center {
+        content: "TÜV-zertifiziertes KI-Management • © 2025: Wolf Hohl | " 
+          "kontakt@ki-sicherheit.jetzt | Seite " counter(page) " von " counter(pages);
+        color: #aab8cc;
+        font-family: 'Inter', Arial, sans-serif;
+        font-size: 9pt;
+        opacity: 0.81;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TITELSEITE -->
+<div class="report-section">
+  <div>
+    <h1>KI-Readiness-Report 2025</h1>
+    <div class="subtitle">Zukunftssichere KI-Strategie für Unternehmen</div>
+  </div>
+</div>
+
+<!-- INHALTSVERZEICHNIS -->
+{% if executive_summary or summary_klein or summary_kmu or summary_solo or gesamtstrategie or roadmap or compliance or datenschutz or foerderprogramme or foerdermittel or tools or innovation or praxisbeispiele or moonshot_vision or eu_ai_act %}
+<div class="report-section">
+  <div class="chapter-box" style="box-shadow:none;">
+    <h2>Inhaltsverzeichnis</h2>
+    <ul>
+      {% if executive_summary %}<li>Executive Summary</li>{% endif %}
+      {% if summary_klein or summary_kmu or summary_solo %}<li>Kurzfazit</li>{% endif %}
+      {% if gesamtstrategie or roadmap %}<li>Gesamtstrategie & Roadmap</li>{% endif %}
+      {% if compliance or datenschutz %}<li>Compliance & Datenschutz</li>{% endif %}
+      {% if foerderprogramme or foerdermittel %}<li>Förderprogramme</li>{% endif %}
+      {% if tools or innovation %}<li>Tools & Innovationen</li>{% endif %}
+      {% if praxisbeispiele %}<li>Praxisbeispiele</li>{% endif %}
+      {% if moonshot_vision or eu_ai_act %}<li>Vision & Zukunftsausblick</li>{% endif %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+<!-- EXECUTIVE SUMMARY -->
+{% if executive_summary %}
+<div class="report-section">
+  <div class="chapter-box">
+    <h2>Executive Summary</h2>
+    <div>{{ executive_summary | safe }}</div>
+  </div>
+</div>
+{% endif %}
+
+<!-- KURZFAZIT -->
+{% if summary_klein or summary_kmu or summary_solo %}
+<div class="report-section">
+  <div class="chapter-box">
+    <h2>Kurzfazit</h2>
+    {% if summary_klein %}
+      <div><b>Kleine Unternehmen:</b> {{ summary_klein | safe }}</div>
+    {% endif %}
+    {% if summary_kmu %}
+      <div><b>KMU:</b> {{ summary_kmu | safe }}</div>
+    {% endif %}
+    {% if summary_solo %}
+      <div><b>Solo-Unternehmen:</b> {{ summary_solo | safe }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<!-- GESAMTSTRATEGIE & ROADMAP -->
+{% if gesamtstrategie or roadmap %}
+<div class="report-section">
+  <div class="chapter-box">
+    <h2>Gesamtstrategie & Roadmap</h2>
+    {% if gesamtstrategie %}
+      <div>{{ gesamtstrategie | safe }}</div>
+    {% endif %}
+    {% if roadmap %}
+      <div style="margin-top: 2em;">{{ roadmap | safe }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+<!-- COMPLIANCE & DATENSCHUTZ -->
+{% if compliance or datenschutz %}
+<div class="report-section">
+  <div class="chapter-box">
+    <h2>Compliance & Datenschutz</h2>
+    {% if compliance %}
+      <div>{{ compliance | safe }}</div>
+    {% endif %}
+    {% if datenschutz %}
+      <div style="margin-top: 2em;">{{ datenschutz | safe }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<!-- FÖRDERPROGRAMME -->
+{% if foerderprogramme or foerdermittel %}
+<div class="report-section">
+  <div class="chapter-box">
+    <h2>Förderprogramme</h2>
+    {% if foerderprogramme %}
+      <div>{{ foerderprogramme | safe }}</div>
+    {% endif %}
+    {% if foerdermittel %}
+      <div style="margin-top:1em;">{{ foerdermittel | safe }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<!-- TOOLS & INNOVATIONEN -->
+{% if tools or innovation %}
+<div class="report-section">
+  <div class="chapter-box">
+    <h2>Tools & Innovationen</h2>
+    {% if tools %}
+      <div>{{ tools | safe }}</div>
+    {% endif %}
+    {% if innovation %}
+      <div style="margin-top:1.6em;">{{ innovation | safe }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<!-- PRAXISBEISPIELE -->
+{% if praxisbeispiele %}
+<div class="report-section">
+  <div class="chapter-box">
+    <h2>Praxisbeispiele</h2>
+    <div>{{ praxisbeispiele | safe }}</div>
+  </div>
+</div>
+{% endif %}
+
+<!-- VISION & ZUKUNFTSAUSBLICK -->
+{% if moonshot_vision or eu_ai_act %}
+<div class="report-section">
+  <div class="chapter-box">
+    <h2>Vision & Zukunftsausblick</h2>
+    {% if moonshot_vision %}
+      <div>{{ moonshot_vision | safe }}</div>
+    {% endif %}
+    {% if eu_ai_act %}
+      <div style="margin-top:1.4em;"><b>EU AI Act:</b> {{ eu_ai_act | safe }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+</body>
+</html>
