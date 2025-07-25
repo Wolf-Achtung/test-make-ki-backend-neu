@@ -11,17 +11,6 @@ if not DATABASE_URL:
 users = [
     # Admin
     ("wolf.hohl@web.de", "admin2025!", "admin"),
-
-    # Test-User mit individuellen Passwörtern
-    ("j.hohl@freenet.de", "passjhohl!", "user"),
-    ("kerstin.geffert@gmail.com", "passkerstin!", "user"),
-    ("post@zero2.de", "passzero2!", "user"),
-    ("GiselaPeter@peter-partner.de", "passgisela!", "user"),
-    ("stephan@meyer-brehm.de", "passstephan!", "user"),
-    ("test@example.de", "passtest!", "user"),
-    ("geffertj@mac.com", "passjens!", "user"),
-    ("geffertkilian@gmail.com", "passkili!", "user"),
-    ("Levent.graef@posteo.de", "passlevgr!", "user"),
 ]
 
 print("Starte Einfügen/Update der User...")
