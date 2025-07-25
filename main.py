@@ -92,7 +92,7 @@ async def login(data: dict):
 
 # --- BRIEFING ---
 @app.post("/briefing")
-async def create_briefing(request: Request, authorization: str = Header(None)):
+async def create_briefing(request: Request):
     payload = verify_token(authorization)
     email = payload.get("email")
     try:
@@ -153,9 +153,9 @@ async def create_briefing(request: Request, authorization: str = Header(None)):
         with get_db() as conn:
             with conn.cursor() as cur:
                 cur.execute(
-                    "INSERT INTO usage_logs (email, pdf_type, created_at) VALUES (%s, %s, NOW())",
-                    (email, "briefing")
-                )
+        "INSERT INTO usage_logs (email, pdf_type, created_at) VALUES (%s, %s, NOW())",
+        ("testuser@test.de", "briefing")
+    )
                 conn.commit()
 
         # *** Das HTML an das Frontend zurückgeben! ***
