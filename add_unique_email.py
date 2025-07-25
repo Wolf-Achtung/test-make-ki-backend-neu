@@ -8,25 +8,25 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise Exception("DATABASE_URL not found in environment.")
 
-conn = psycopg2.connect(DATABASE_URL)
-cur = conn.cursor()
-
 print("Starte: UNIQUE Constraint für users.email hinzufügen ...")
 
 try:
-    cur.execute("ALTER TABLE users ADD CONSTRAINT unique_email UNIQUE(email);")
-    conn.commit()
-    print("✅ UNIQUE Constraint erfolgreich hinzugefügt.")
-except psycopg2.errors.UniqueViolation as e:
-    print("⚠️ UNIQUE-Verletzung:", e)
-except psycopg2.errors.DuplicateObject as e:
-    print("⚠️ Constraint existiert bereits:", e)
-except Exception as e:
-    if 'already exists' in str(e):
-        print("⚠️ Constraint existiert bereits:", e)
+    conn = psycopg2.connect(DATABASE_URL)
+    cur = conn.cursor()
+    # Prüfen, ob die Constraint existiert
+    cur.execute("""
+        SELECT 1 FROM pg_constraint WHERE conname = 'unique_email'
+    """)
+    exists = cur.fetchone()
+    if exists:
+        print("⚠️ Constraint existiert bereits: unique_email")
     else:
-        print("⚠️ Anderer Fehler:", e)
-
-cur.close()
-conn.close()
-print("✅ Fertig.")
+        cur.execute("""
+            ALTER TABLE users ADD CONSTRAINT unique_email UNIQUE(email);
+        """)
+        conn.commit()
+        print("✅ Constraint unique_email wurde hinzugefügt!")
+    cur.close()
+    conn.close()
+except Exception as e:
+    print(f"❌ Fehler beim Hinzufügen der Constraint: {e}")
