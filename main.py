@@ -33,7 +33,7 @@ app.add_middleware(
         "https://test.make.ki-sicherheit.jetzt",
         "http://localhost",
         "http://127.0.0.1",
-        "https://6883c9e6f6c1a0686d597--curious-choux-d744f3.netlify.app"
+        "https://curious-choux-d744f3.netlify.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
