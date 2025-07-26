@@ -94,15 +94,17 @@ async def login(data: dict):
 # --- BRIEFING ---
 @app.post("/briefing")
 async def create_briefing(request: Request):
-    payload = verify_token(authorization)
-    email = payload.get("email")
     try:
         data = await request.json()
-        print(f"🧠 Briefing-Daten empfangen von {email}")
+        print(f"🧠 Briefing-Daten empfangen")
         print("### DEBUG: calc_score_percent(data) wird ausgeführt ###")
         result = analyze_full_report(data)
+        # Setze eine Standard-Email oder nimm sie aus den Formulardaten, z.B.:
+        # result["email"] = data.get("email", "testuser@test.de")
+        result["email"] = data.get("email", "testuser@test.de")
         print(f"### DEBUG: score_percent berechnet: {result.get('score_percent')}")
-        result["email"] = email
+        # ... Rest bleibt wie gehabt
+
 
         # --- Die benötigten Felder für das Template bereitstellen ---
                 # --- Die benötigten Felder für das Template bereitstellen ---
@@ -170,11 +172,10 @@ async def create_briefing(request: Request):
 
 # --- FEEDBACK SPEICHERN ---
 @app.post("/feedback")
-async def feedback(request: Request, authorization: str = Header(None)):
-    payload = verify_token(authorization)
-    email = payload.get("email")
+async def feedback(request: Request):
     try:
         data = await request.json()
+        email = data.get("email", "testuser@test.de")
         # Alle Felder robust auslesen (Default: leerer String)
         kommentar = data.get("kommentar", "")
         nuetzlich = data.get("nuetzlich", "")
@@ -208,10 +209,11 @@ async def feedback(request: Request, authorization: str = Header(None)):
                     )
                     """,
                     (
-                        email, kommentar, nuetzlich, hilfe,
-                        verstaendlich_analyse, verstaendlich_empfehlung,
-                        vertrauen, serio, textstellen, dauer, unsicher, features,
-                        freitext, tipp_name, tipp_firma, tipp_email
+                        email, kommentar, data.get("nuetzlich", ""), data.get("hilfe", ""),
+                        data.get("verstaendlich_analyse", ""), data.get("verstaendlich_empfehlung", ""),
+                        data.get("vertrauen", ""), data.get("serio", ""), data.get("textstellen", ""), data.get("dauer", ""),
+                        data.get("unsicher", ""), data.get("features", ""), data.get("freitext", ""),
+                        data.get("tipp_name", ""), data.get("tipp_firma", ""), data.get("tipp_email", "")
                     )
                 )
             conn.commit()
