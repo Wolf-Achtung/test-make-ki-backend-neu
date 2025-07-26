@@ -31,7 +31,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://curious-choux-d744f3.netlify.app",
-        "https://test.make.ki-sicherheit.jetzt",
         "http://localhost",
         "http://127.0.0.1",
 
